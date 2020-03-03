@@ -35,24 +35,29 @@ public class CoronavirusDataService {
 
 	private List<LocationStats> confirmedStats = new ArrayList<>();
 
-	private List<LocationStats> recoveryStats = new ArrayList<>();
+	private List<LocationStats> recoveredStats = new ArrayList<>();
 
 	private List<LocationStats> deathStats = new ArrayList<>();
 
+	/* Method that gets the confirmed csv file from the specified URL */
 	@PostConstruct
 	@Scheduled(cron = "*/60 * * * * *")
 	public void fetchConfirmedData() throws IOException {
-
 		RestTemplate restTemplate = new RestTemplate();
 		String resultData = restTemplate.getForObject(CONFIRMED_URL, String.class);
 		confirmedStats = parseData(resultData);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YY HH:mm:ss");
-		updatedDataTime = dateFormat.format(new Date());
-
-		log.info("Data updated on {}", updatedDataTime);
-
+	}
+	
+	/* Method that gets the recovered csv file from the specified URL */
+	@PostConstruct
+	@Scheduled(cron = "*/60 * * * * *")
+	public void fetchRecoveredData() throws IOException {
+		RestTemplate restTemplate = new RestTemplate();
+		String resultData = restTemplate.getForObject(RECOVERED_URL, String.class);
+		recoveredStats = parseData(resultData);
 	}
 
+	/* Method that parse the csv files using commons-csv dependency */
 	public List<LocationStats> parseData(String data) throws IOException {
 		StringReader in = new StringReader(data);
 
@@ -81,8 +86,16 @@ public class CoronavirusDataService {
 	public List<LocationStats> getConfirmedStats() {
 		return confirmedStats;
 	}
+	
+	public List<LocationStats> getRecoveredStats() {
+		return recoveredStats;
+	}
 
+	@Scheduled(cron = "*/60 * * * * *")
 	public String getUpdatedDataTime() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YY HH:mm:ss");
+		updatedDataTime = dateFormat.format(new Date());
+		log.info("Data updated on {}", updatedDataTime);
 		return updatedDataTime;
 	}
 }

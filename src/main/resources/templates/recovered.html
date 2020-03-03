@@ -9,11 +9,11 @@
 </head>
 <body>
 	<div class="container">
-		<div class="jumbotron bg-warning">
+		<div class="jumbotron bg-success">
 			<h1 class="display-3">Coronavirus Tracker</h1>
-			<h1 class="display-4" th:text="${totalConfirmedCases}"></h1>
+			<h1 class="display-4" th:text="${totalRecoveredCases}"></h1>
 			<p>
-				<span class="lead">Current COVID-19 reported cases. </span> <span
+				<span class="lead">Current COVID-19 recovered cases. </span> <span
 					class="font-italic">Data updated on </span> <span
 					class="font-italic" th:text="${updatedDataTime}"> </span>
 			</p>
@@ -23,10 +23,10 @@
 			<tr>
 				<th>Country</th>
 				<th>State</th>
-				<th class="text-center">Total cases</th>
+				<th class="text-center">Recovered cases</th>
 				<th class="text-center">Increase from yesterday</th>
 			</tr>
-			<tr th:each="stat : ${confirmedStats}">
+			<tr th:each="stat : ${recoveredStats}">
 				<td th:text="${stat.country}"></td>
 				<td th:text="${stat.state}"></td>
 				<td th:text="${stat.latestTotal}" class="text-center">0</td>

@@ -16,18 +16,34 @@ public class ConfirmedController {
 	@Autowired
 	private CoronavirusDataService service;
 	
+	static String updatedDataTime;
+	
 	@GetMapping("/confirmed")
 	public String getConfirmed(Model model) {
 		List<LocationStats> confirmedStats = service.getConfirmedStats();
 		
-		int totalReportedCases = confirmedStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
-		String updatedDataTime = service.getUpdatedDataTime();
+		int totalConfirmedCases = confirmedStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
+		updatedDataTime = service.getUpdatedDataTime();
 		
 		model.addAttribute("confirmedStats", confirmedStats);
-		model.addAttribute("totalReportedCases", totalReportedCases);
+		model.addAttribute("totalConfirmedCases", totalConfirmedCases);
 		model.addAttribute("updatedDataTime", updatedDataTime);
 		
 		return "confirmed";
+	}
+	
+	@GetMapping("/recovered")
+	public String getRecovered(Model model) {
+		List<LocationStats> recoveredStats = service.getRecoveredStats();
+		
+		int totalRecoveredCases = recoveredStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
+		updatedDataTime = service.getUpdatedDataTime();
+		
+		model.addAttribute("recoveredStats", recoveredStats);
+		model.addAttribute("totalRecoveredCases", totalRecoveredCases);
+		model.addAttribute("updatedDataTime", updatedDataTime);
+		
+		return "recovered";
 	}
 
 }
