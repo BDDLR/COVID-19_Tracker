@@ -32,6 +32,5 @@ public class ConfirmedController {
 		return "confirmed";
 	}
 	
-	
 
 }
