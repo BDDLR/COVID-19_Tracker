@@ -14,28 +14,24 @@ import org.apache.commons.csv.CSVRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.bryan.tracker.model.LocationStats;
 
-@Controller
-public class CoronavirusDataService {
+@Service
+public class ConfirmedService {
 
-	private static final Logger log = LoggerFactory.getLogger(CoronavirusDataService.class);
+	private static final Logger log = LoggerFactory.getLogger(ConfirmedService.class);
 
-	private static String updatedDataTime;
+	private static String confirmedDataTime;
 
 	private static String CONFIRMED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
-
-	private static String RECOVERED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv";
 
 	// private static String CONFIRMED_URL =
 	// "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
 
 	private List<LocationStats> confirmedStats = new ArrayList<>();
-
-	private List<LocationStats> recoveredStats = new ArrayList<>();
 
 	private List<LocationStats> deathStats = new ArrayList<>();
 
@@ -46,16 +42,9 @@ public class CoronavirusDataService {
 		RestTemplate restTemplate = new RestTemplate();
 		String resultData = restTemplate.getForObject(CONFIRMED_URL, String.class);
 		confirmedStats = parseData(resultData);
+		updatedDataTime();
 	}
 	
-	/* Method that gets the recovered csv file from the specified URL */
-	@PostConstruct
-	@Scheduled(cron = "*/60 * * * * *")
-	public void fetchRecoveredData() throws IOException {
-		RestTemplate restTemplate = new RestTemplate();
-		String resultData = restTemplate.getForObject(RECOVERED_URL, String.class);
-		recoveredStats = parseData(resultData);
-	}
 
 	/* Method that parse the csv files using commons-csv dependency */
 	public List<LocationStats> parseData(String data) throws IOException {
@@ -87,15 +76,14 @@ public class CoronavirusDataService {
 		return confirmedStats;
 	}
 	
-	public List<LocationStats> getRecoveredStats() {
-		return recoveredStats;
+	public static String getConfirmedDataTime() {
+		return confirmedDataTime;
 	}
+	
 
-	@Scheduled(cron = "*/60 * * * * *")
-	public String getUpdatedDataTime() {
+	public void updatedDataTime() {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-YY HH:mm:ss");
-		updatedDataTime = dateFormat.format(new Date());
-		log.info("Data updated on {}", updatedDataTime);
-		return updatedDataTime;
+		confirmedDataTime = dateFormat.format(new Date());
+		log.info("Confirmed data updated on {}", confirmedDataTime);
 	}
 }

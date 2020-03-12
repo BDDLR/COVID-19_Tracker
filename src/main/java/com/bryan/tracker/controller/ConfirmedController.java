@@ -8,42 +8,30 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.bryan.tracker.model.LocationStats;
-import com.bryan.tracker.service.CoronavirusDataService;
+import com.bryan.tracker.service.ConfirmedService;
 
 @Controller
 public class ConfirmedController {
 	
 	@Autowired
-	private CoronavirusDataService service;
+	private ConfirmedService service;
 	
-	static String updatedDataTime;
+	static String confirmedDataTime;
 	
 	@GetMapping("/confirmed")
 	public String getConfirmed(Model model) {
 		List<LocationStats> confirmedStats = service.getConfirmedStats();
 		
 		int totalConfirmedCases = confirmedStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
-		updatedDataTime = service.getUpdatedDataTime();
+		confirmedDataTime = ConfirmedService.getConfirmedDataTime();
 		
 		model.addAttribute("confirmedStats", confirmedStats);
 		model.addAttribute("totalConfirmedCases", totalConfirmedCases);
-		model.addAttribute("updatedDataTime", updatedDataTime);
+		model.addAttribute("confirmedDataTime", confirmedDataTime);
 		
 		return "confirmed";
 	}
 	
-	@GetMapping("/recovered")
-	public String getRecovered(Model model) {
-		List<LocationStats> recoveredStats = service.getRecoveredStats();
-		
-		int totalRecoveredCases = recoveredStats.stream().mapToInt(stat -> stat.getLatestTotal()).sum();
-		updatedDataTime = service.getUpdatedDataTime();
-		
-		model.addAttribute("recoveredStats", recoveredStats);
-		model.addAttribute("totalRecoveredCases", totalRecoveredCases);
-		model.addAttribute("updatedDataTime", updatedDataTime);
-		
-		return "recovered";
-	}
+	
 
 }
