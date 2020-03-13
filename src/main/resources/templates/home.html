@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Coronavirus Tracker Application</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+	integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron">
+			<a th:href="@{/confirmed}" class="btn btn-warning btn-lg"
+				role="button">Confirmed</a>
+				
+			<a th:href="@{/recovered}" class="btn btn-success btn-lg"
+				role="button">Recovered</a>
+				
+			<a th:href="@{/death}" class="btn btn-danger btn-lg"
+				role="button">Death</a>
+		</div>
+	</div>
+
+</body>
+</html>
