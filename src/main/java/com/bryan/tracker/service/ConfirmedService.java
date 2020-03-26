@@ -26,7 +26,7 @@ public class ConfirmedService {
 
 	private static String confirmedDataTime;
 
-	private static String CONFIRMED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv";
+	private static String CONFIRMED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
 
 	private List<LocationStats> confirmedStats = new ArrayList<>();
 

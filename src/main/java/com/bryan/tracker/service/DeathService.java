@@ -26,7 +26,7 @@ public class DeathService {
 
 	private static String deathDataTime;
 
-	private static String DEATH_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv";
+	private static String DEATH_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_deaths_global.csv";
 
 	private List<LocationStats> deathStats = new ArrayList<>();
 

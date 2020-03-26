@@ -26,7 +26,7 @@ public class RecoveredService {
 	
 	private static String recoveredDataTime;
 	
-	private static String RECOVERED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv";
+	private static String RECOVERED_URL = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_recovered_global.csv";
 	
 	private List<LocationStats> recoveredStats = new ArrayList<>();
 	

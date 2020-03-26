@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.bryan.tracker.model.LocationStats;
-import com.bryan.tracker.service.ConfirmedService;
 import com.bryan.tracker.service.RecoveredService;
 
 @Controller
